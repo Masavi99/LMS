@@ -1,0 +1,45 @@
+﻿@model List<LMS.Models.DBModels.Module>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Details";
+}
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Manage Course Module</h2>
+    </div>
+    <div class="col-6">
+        <a href="/Admin/Module/Index" class="btn btn-info float-end"><i class="fa-solid fa-arrow-left"></i>&nbsp;Go Back</a>
+    </div>
+</div>
+<div class="accordion mt-2" id="accordionExample">
+    @{
+        var index = 0;
+    }
+    @foreach (var module in Model)
+    {
+        var collapseId = $"collapse{index}";
+        var headingId = $"heading{index}";
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="@headingId">
+                <button class="accordion-button @(index != 0 ? "collapsed" : "")" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="@(index == 0 ? "true" : "false")" aria-controls="@collapseId">
+                    Module:@module.ModuleOrder - @module.Title
+                </button>
+            </h2>
+            <div id="@collapseId" class="accordion-collapse collapse @(index == 0 ? "show" : "")" aria-labelledby="@headingId" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @Html.Raw(module.Contents)
+                    <a href="/Admin/Module/Edit/@module.Id" class="btn btn-sm btn-info ms-2">
+                        <i class="far fa-edit"></i> Edit
+                    </a>
+                    <a href="/Admin/Module/AddModuleQuiz/@module.Id" class="btn btn-sm btn-info ms-2">
+                        <i class="fas fa-plus"></i> Create Quiz Question
+                    </a>
+                    <a href="/Admin/Module/QuizQuestion/@module.Id" class="btn btn-sm btn-info ms-2">
+                        <i class="fa-solid fa-bars"></i> View Quiz Question
+                    </a>
+                </div>
+            </div>
+        </div>
+        index++;
+    }
+</div>

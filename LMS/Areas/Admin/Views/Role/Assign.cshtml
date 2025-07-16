@@ -1,0 +1,60 @@
+﻿@model LMS.Models.ViewModels.RoleUserVm
+@{
+    ViewData["Title"] = "Assign";
+    Layout = "_Layout";
+}
+<br />
+<h2 class="text-info">Assign Role</h2>
+<form asp-action="Assign" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <h4 class="text-danger">@ViewBag.message</h4>
+        <div class="form-group row">
+            <div class="col-2">
+                
+                 <label>@Html.DisplayNameFor(model => model.UserId)</label>
+                
+            </div>
+            <div class="col-5">
+                <select name="UserId" class="form-control">
+                    @foreach (var user in ViewBag.UserId)
+                    {
+                        <option value="@user.Id">@user.UserName</option>
+                    }
+                </select>
+
+                @*<input asp-for="ProductTypeId" class="form-control"/>*@
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label>@Html.DisplayNameFor(model => model.RoleId)</label>
+
+            </div>
+            <div class="col-5">
+                <select name="RoleId" class="form-control">
+                    @foreach (var role in ViewBag.RoleId)
+                    {
+                        <option value="@role.Name">@role.Name</option>
+                    }
+                </select>
+
+                @*<input asp-for="SpecialTagId" class="form-control"/>*@
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group mt-4 ms-5">
+            <input type="submit" class="btn btn-primary" value="Assign" />
+            &nbsp;<a href="/Admin/User/Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

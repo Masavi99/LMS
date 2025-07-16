@@ -1,0 +1,45 @@
+﻿@using LMS.Models.ViewModels
+@model CertificateVm
+@{
+    Layout = "_Layout";
+}
+
+<div class="container text-center mt-5" id="certificate-content">
+    <div style="border: 5px double #333; padding: 40px; border-radius: 20px;">
+        <h1 class="text-uppercase mb-4" style="font-size: 48px;">Certificate of Completion</h1>
+
+        <p class="fs-5">This is to certify that</p>
+
+        <h2 class="text-primary my-3">@Model.StudentName</h2>
+
+        <p class="fs-5">has successfully completed the course</p>
+
+        <h3 class="text-success mb-4">“@Model.CourseTitle”</h3>
+
+        <p class="fs-6">Date: @Model.CompletionDate.ToString("MMMM dd, yyyy")</p>
+
+        <div class="mt-5">
+            <img src="~/Images/signature.png" height="50px" width="120px" alt="signature" />
+            <hr style="width: 300px; margin: auto;" />
+            <p class="mt-2">Instructor Signature</p>
+        </div>
+    </div>
+
+</div>
+<div class="text-center mt-3">
+    <button class="btn btn-outline-primary" onclick="downloadCertificate()">Download as PDF</button>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadCertificate() {
+            const element = document.getElementById('certificate-content');
+            html2pdf().from(element).set({
+                margin: 1,
+                filename: 'Certificate.pdf',
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            }).save();
+        }
+    </script>
+}

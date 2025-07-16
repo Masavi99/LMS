@@ -1,0 +1,102 @@
+﻿@using LMS.Models.DBModels
+@model LMS.Models.DBModels.FinalExam
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create";
+}
+<br />
+<h2 class="">Create Final Exam</h2>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <h4 class="text-danger">@ViewBag.message</h4>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Course</label>
+            </div>
+            <div class="col-10">
+                <select name="CourseId" class="form-select" required>
+                    <option value="">-- Select Course --</option>
+                    @foreach (var course in  (List<Course>)ViewBag.Courses)
+                    {
+                        <option value="@course.Id">
+                            @course.Title
+                        </option>
+                    }
+                </select>
+
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            
+        </div>
+        <div class="form-group row my-2">
+            
+            <div class="col-2">
+                <label class="required">Exam Title</label>
+            </div>
+            <div class="col-10">
+                <input name="Title" class="form-control" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label for="ExamType" class="required">Exam Type</label>
+            </div>
+            <div class="col-10">
+                <select name="ExamType" class="form-select" required>
+                    <option value="">-- Select Exam Type --</option>
+                    <option value="Written">Written</option>
+                    <option value="MCQ">MCQ</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Passing Score(in %)</label>
+            </div>
+            <div class="col-10">
+                <input name="PassingScore" class="form-control" type="number" min="1" required />
+                <span asp-validation-for="PassingScore" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Max Attempts</label>
+            </div>
+            <div class="col-10">
+                <input name="MaxAttempts" class="form-control" type="number" min="1" required />
+                <span asp-validation-for="MaxAttempts" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Exam Duaration(in Minutes)</label>
+            </div>
+            <div class="col-10">
+                <input name="Duration" class="form-control" type="number" min="1" required />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group mt-4 ms-5">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            &nbsp;<a href="/Admin/FinalExam/Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

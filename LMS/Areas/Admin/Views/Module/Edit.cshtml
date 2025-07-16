@@ -1,0 +1,94 @@
+﻿@model LMS.Models.DBModels.Module
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Edit";
+}
+<link href="https://cdn.jsdelivr.net/npm/suneditor/dist/css/suneditor.min.css" rel="stylesheet">
+<br />
+<h2 class="">Edit Course Module for: @ViewBag.Course</h2>
+<form id="createForm" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <h4 class="text-danger">@ViewBag.message</h4>
+        <div class="form-group row my-2">
+            <input type="hidden" name="CourseId" value="@ViewBag.CourseId" />
+            <div class="col-2">
+                <label class="required">Module Title</label>
+            </div>
+            <div class="col-10">
+                <input name="Title" class="form-control" value="@Model.Title" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Contents</label>
+            </div>
+            <div class="col-10">
+                @Html.TextAreaFor(model => model.Contents, new { id = "editor", style = "height: 300px;" })
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Module Order</label>
+            </div>
+            <div class="col-10">
+                <input name="ModuleOrder" class="form-control" type="number" min="1" value="@Model.ModuleOrder" required />
+                <span asp-validation-for="ModuleOrder" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group mt-4 ms-5">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            &nbsp;<a href="/Admin/Module/Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/suneditor/dist/suneditor.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editor = SUNEDITOR.create('editor', {
+                height: '300px',
+                width: '100%',
+                buttonList: [
+                    ['undo', 'redo', 'formatBlock', 'bold', 'underline', 'italic', 'list', 'align', 'fontColor', 'hiliteColor', 'horizontalRule', 'table', 'link', 'image', 'video', 'fullScreen']
+                ]
+            });
+
+            // Wait until SunEditor is fully loaded
+            editor.onChange = function (contents) {
+                console.log("Editor content updated:", contents);
+                // Always update textarea value on each change (optional)
+                document.getElementById('editor').value = contents;
+            };
+
+            const form = document.getElementById('createForm');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    const content = editor.getContents();
+                    console.log("Submitting content:", content);
+                    document.getElementById('editor').value = content;
+                });
+            } else {
+                console.error("Form not found.");
+            }
+        });
+    </script>
+
+
+
+}

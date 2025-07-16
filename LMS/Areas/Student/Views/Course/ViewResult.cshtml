@@ -1,0 +1,106 @@
+﻿@using LMS.Models.ViewModels
+@model FinalExamResultVm
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Exam Result";
+    var count = 1;
+}
+
+<h2>Final Exam Result: @Model.Exam.Title</h2>
+
+<hr />
+
+@if (Model.Exam.ExamType == "MCQ") // or == 2
+{
+    <h4 class="text-success">Your Score: @Model.Submission.Score / @Model.StudentFinalExamAnswer.Count</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ans in Model.StudentFinalExamAnswer)
+            {
+                <tr>
+                    <td>@(count + 1)</td>
+                    <td>@ans.FinalExamQuestion?.Question</td>
+                    <td>@ans.SelectedOption</td>
+                    <td>@ans.FinalExamQuestion?.CorrectOption</td>
+                    <td>
+                        @if (ans.IsCorrect)
+                        {
+                            <span class="text-success">✔️ Correct</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">❌ Incorrect</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Exam.ExamType == "Written")
+{
+    <h4>Written Exam</h4>
+
+    @if (Model.Submission.Score != null && Model.Submission.Score > 0)
+    {
+        <p class="text-success">
+            Your Score: <strong>@Model.Submission.Score</strong> / @ViewBag.TotalMarks
+        </p>
+    }
+    else
+    {
+        <p class="text-muted">🕒 Result not published yet.</p>
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Submission</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var totalQuestions = Model.StudentFinalExamAnswer.Count;
+            }
+
+            @for (int i = 0; i < totalQuestions; i++)
+            {
+                var ans = Model.StudentFinalExamAnswer[i];
+                <tr>
+                    <td>@(count+1)</td>
+                    <td>@ans.FinalExamQuestion?.Question</td>
+
+                    @if (i == 0) // Only in the first row
+                    {
+                        <td rowspan="@totalQuestions" class="text-center align-middle">
+                            @if (!string.IsNullOrEmpty(ans.WrittenSubmissionURL))
+                            {
+                                <a href="/@ans.WrittenSubmissionURL" target="_blank" class="btn btn-outline-primary">
+                                    📄 View Submission
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-warning">⚠️ Not submitted</span>
+                            }
+                        </td>
+                    }
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+
+}
+

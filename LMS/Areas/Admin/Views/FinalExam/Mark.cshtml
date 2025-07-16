@@ -1,0 +1,70 @@
+﻿@model List<LMS.Models.DBModels.FinalExamSubmission>
+@{
+    ViewData["Title"] = "Mark Written Exam";
+    Layout = "_Layout";
+    var totalMarks = (int)ViewBag.TotalMarks;
+    var writtenAnswers = ViewBag.WrittenAnswers as List<LMS.Models.DBModels.StudentFinalExamAnswer>;
+}
+
+<h2>Written Exam Marking<p class="float-end">Total Marks: @totalMarks</p></h2>
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">No submissions found for this exam.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Student</th>
+                <th>Submitted File</th>
+                <th>Score</th>
+                <th>Mark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var submission in Model)
+            {
+                var fileUrl = writtenAnswers
+                ?.FirstOrDefault(a => a.FinalExamSubmissionId == submission.Id)
+                ?.WrittenSubmissionURL;
+
+                <tr>
+                    <td>@submission.Student?.FullName</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(fileUrl))
+                        {
+                            <a href="/@fileUrl" target="_blank" class="btn btn-sm btn-outline-primary">📄 View</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No File</span>
+                        }
+                    </td>
+                    <td>
+                        @submission.Score
+                        @if (submission.Passed)
+                        {
+                            <span class="badge bg-success ms-1">Passed</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger ms-1">Not Passed</span>
+                        }
+                    </td>
+                    <td>
+                        <form asp-action="Mark" method="post" class="d-flex">
+                            <input type="hidden" name="id" value="@submission.Id" />
+                            <input type="hidden" name="totalMarks" value="@totalMarks" />
+                            <input type="number" name="score" class="form-control form-control-sm me-2"
+                                   value="@submission.Score" min="0" max="@totalMarks" required />
+                            <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

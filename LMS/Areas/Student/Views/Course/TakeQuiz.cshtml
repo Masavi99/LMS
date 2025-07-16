@@ -1,0 +1,62 @@
+﻿@model LMS.Models.DBModels.Quiz
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Take Quiz";
+    var totalQuestions = Model.QuizQuestions!.Count();
+    var fullMarks = totalQuestions; // each question is 1 mark
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4><i class="fas fa-pencil-alt"></i> @Model.Title</h4>
+            <span class="badge bg-light text-dark">
+                <i class="fas fa-question-circle"></i> Total Questions: @totalQuestions |
+                <i class="fas fa-star"></i> Full Marks: @fullMarks
+            </span>
+        </div>
+        <div class="card-body">
+            <form asp-action="TakeQuiz" method="post">
+                <input type="hidden" name="QuizId" value="@Model.Id" />
+                @foreach (var question in Model.QuizQuestions!.Select((q, i) => new { Question = q, Index = i + 1 }))
+                {
+                    <div class="mb-4 p-3 border rounded shadow-sm">
+                        @* <h5 class="text-dark">
+                            <i class="fas fa-question"></i> Question @question.Index
+                        </h5> *@
+                        <p class="fw-bold">@question.Index. @question.Question.Question</p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answers[@question.Question.Id]" value="A" required />
+                            <label class="form-check-label">A. @question.Question.OptionA</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answers[@question.Question.Id]" value="B" required />
+                            <label class="form-check-label">B. @question.Question.OptionB</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answers[@question.Question.Id]" value="C" required />
+                            <label class="form-check-label">C. @question.Question.OptionC</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="answers[@question.Question.Id]" value="D" required />
+                            <label class="form-check-label">D. @question.Question.OptionD</label>
+                        </div>
+                    </div>
+                }
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-paper-plane"></i> Submit Quiz
+                    </button>
+                </div>
+            </form>
+            <div class="mt-3">
+                <a href="/Student/Course/Lessons/@ViewBag.CourseId" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Lessons
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

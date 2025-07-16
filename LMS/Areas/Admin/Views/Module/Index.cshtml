@@ -1,0 +1,91 @@
+﻿@using LMS.Models.DBModels
+
+@model IEnumerable<Course>
+@{
+    ViewData["Title"] = "Module";
+    Layout = "_Layout";
+    var count = 1;
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="">Manage Module</h2>
+    </div>
+    @* <div class="col-6">
+        <a href="/Admin/Module/Create" class="btn btn-info float-end"><i class="fas fa-plus"></i>&nbsp;New Course Module</a>
+    </div> *@
+</div>
+<br />
+<div>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th>Course</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>
+                        <a asp-action="Create" class="btn btn-info" href="/Admin/Module/Create/@item.Id" title="Add Module"><i class="far fa-plus"></i> Add Module</a>
+                        <a asp-action="Details" class="btn btn-info" href="/Admin/Module/Details/@item.Id" title="View All Module"><i class="fa-solid fa-bars"></i> View All Module</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    @if (TempData != null)
+    {
+        <script type="text/javascript">
+            $(function () {
+                var save = '@TempData["save"]'
+                var update = '@TempData["update"]'
+                var deletes = '@TempData["delete"]'
+                if (save != '') {
+                    alertify.success(save);
+                }
+                if (update != '') {
+                    alertify.success(update);
+                }
+                if (deletes != '') {
+                    alertify.success(deletes);
+                }
+            })
+        </script>
+    }
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+
+                dom: 'Bfrtip', // B = Buttons, f = filtering, r = processing, t = table, i = info, p = paging
+                buttons: [
+                    'csv',
+                    'excel',
+                    'pdf',
+                    'print'
+                ]
+            });
+        });
+
+    </script>
+
+}
+

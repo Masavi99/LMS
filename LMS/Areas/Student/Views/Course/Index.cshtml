@@ -1,0 +1,92 @@
+﻿@model IEnumerable<LMS.Models.ViewModels.EnrollmentVm>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "My Enrolled Courses";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">My Enrolled Courses</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            You have not enrolled in any courses yet.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Course Title</th>
+                    <th>Price</th>
+                    <th>Enrollment Date</th>
+                    <th>Progress</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var enrollment in Model.Select((e, index) => new { e, index }))
+                {
+                    <tr>
+                        <td>@(enrollment.index + 1)</td>
+                        <td>@enrollment.e.CourseName</td>
+                        <td>@String.Format("{0:C2}", enrollment.e.CoursePrice)</td>
+                        <td>@enrollment.e.EnrollmentDate.ToString("MMMM dd, yyyy")</td>
+                        <td>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                     style="width: @enrollment.e.ProgressPercent%"
+                                     aria-valuenow="@enrollment.e.ProgressPercent"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                    @($"{enrollment.e.ProgressPercent:F0}%")
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <a href="/Admin/Course/Details/@enrollment.e.CourseId" class="btn btn-sm btn-outline-info">View Details</a>
+                            <a href="/Student/Course/Lessons/@enrollment.e.CourseId" class="btn btn-sm btn-outline-success">Lessons</a>
+                            @if(enrollment.e.ProgressPercent == 100)
+                            {
+                                <a href="/Student/Course/FinalExam/@enrollment.e.CourseId" class="btn btn-sm btn-outline-success">Final Exam</a>
+                            }
+                            @if (enrollment.e.ProgressPercent == 100 && enrollment.e.IsFinalExamPassed)
+                            {
+                                <a href="/Student/Course/Certificate/@enrollment.e.CourseId" class="btn btn-sm btn-outline-success">Certificate</a>
+
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    @if (TempData != null)
+    {
+            <script type="text/javascript">
+                $(function () {
+                    var save = '@TempData["save"]'
+                    var update = '@TempData["update"]'
+                    var deletes = '@TempData["delete"]'
+                    if (save != '') {
+                        alertify.success(save);
+                    }
+                    if (update != '') {
+                        alertify.success(update);
+                    }
+                    if (deletes != '') {
+                        alertify.success(deletes);
+                    }
+                })
+    </script>
+    }
+}

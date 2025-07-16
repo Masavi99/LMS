@@ -1,0 +1,95 @@
+﻿@using LMS.Models.ViewModels
+@model FinalExamResultVm
+@{
+    Layout = "_Layout";
+}
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <h4>@Model.ExamTitle - Result</h4>
+            <span>@Model.SubmissionDate.ToString("g")</span>
+        </div>
+        <div class="card-body">
+            <h5>Exam Type: <span class="badge bg-info">@Model.ExamType</span></h5>
+            <h5>
+                Status:
+                @if (Model.Passed)
+                {
+                    <span class="badge bg-success">✅ Passed</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">❌ Failed</span>
+                }
+            </h5>
+
+            @if (Model.ExamType == "Written")
+            {
+                <hr />
+                <h5>Your Submission:</h5>
+                @if (!string.IsNullOrEmpty(Model.WrittenSubmissionUrl))
+                {
+                    <a class="btn btn-outline-primary" href="@Model.WrittenSubmissionUrl" target="_blank">
+                        View Uploaded Answer (PDF)
+                    </a>
+                }
+                else
+                {
+                    <p class="text-danger">No file found.</p>
+                }
+            }
+            else if (Model.ExamType == "MCQ")
+            {
+                <hr />
+                <h5>Score: @Model.Score / @Model.TotalQuestions</h5>
+
+                @foreach (var a in Model.Answers.Select((ans, i) => new { ans, i }))
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <strong>Question @(a.i + 1):</strong> @a.ans.Question
+                        <ul class="mt-2">
+                            <li @(a.ans.CorrectAnswer == "A" ? "style=color:green;" : "")>
+                                A. @a.ans.OptionA
+                                @if (a.ans.StudentAnswer == "A")
+                                {
+                                    <span class="badge bg-primary ms-1">Your Answer</span>
+                                }
+                            </li>
+                            <li @(a.ans.CorrectAnswer == "B" ? "style=color:green;" : "")>
+                                B. @a.ans.OptionB
+                                @if (a.ans.StudentAnswer == "B")
+                                {
+                                    <span class="badge bg-primary ms-1">Your Answer</span>
+                                }
+                            </li>
+                            <li @(a.ans.CorrectAnswer == "C" ? "style=color:green;" : "")>
+                                C. @a.ans.OptionC
+                                @if (a.ans.StudentAnswer == "C")
+                                {
+                                    <span class="badge bg-primary ms-1">Your Answer</span>
+                                }
+                            </li>
+                            <li @(a.ans.CorrectAnswer == "D" ? "style=color:green;" : "")>
+                                D. @a.ans.OptionD
+                                @if (a.ans.StudentAnswer == "D")
+                                {
+                                    <span class="badge bg-primary ms-1">Your Answer</span>
+                                }
+                            </li>
+                        </ul>
+                        @if (!a.ans.IsCorrect)
+                        {
+                            <p class="text-danger">Correct Answer: <strong>@a.ans.CorrectAnswer</strong></p>
+                        }
+                    </div>
+                }
+            }
+
+            <div class="mt-4">
+                <a href="/Student/Course/FinalExam/@Model.CourseId" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Courses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

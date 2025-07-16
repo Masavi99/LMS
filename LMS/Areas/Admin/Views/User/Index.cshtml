@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "User List";
+    Layout = "_Layout";
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Assigned User Role</h2>
+    </div>
+    <div class="col-6">
+        <a href="/Admin/Role/Assign" class="btn btn-info float-end"><i class="fas fa-plus"></i>&nbsp;Assign Role</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>User Name</th>
+            <th>Role Name</th>
+        </tr>
+        @foreach (var item in ViewBag.UserRoles)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.RoleName</td>
+            </tr>
+        }
+    </table>
+</div>
+

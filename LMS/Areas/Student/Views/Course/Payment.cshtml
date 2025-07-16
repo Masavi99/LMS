@@ -1,0 +1,77 @@
+﻿@* @model LMS.Models.DBModels.Payment
+@{
+    Layout = "_Layout";
+}
+<h2 class="text-info">Payment for @Model.Enrollments!.Course!.Title</h2>
+<p>Amount Due: @Model.Amount.ToString("C")</p>
+
+<form asp-action="ConfirmPayment" method="post">
+    <input type="hidden" name="paymentId" value="@Model.Id" />
+    <button type="submit" class="btn btn-success">
+        Confirm Payment
+    </button>
+</form>
+ *@
+
+@model LMS.Models.DBModels.Payment
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Course Payment";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="fas fa-shopping-cart"></i> Checkout</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">@Model.Enrollments!.Course!.Title</h5>
+                        <span class="badge bg-secondary">
+                            @if (Model.Enrollments.Course.IsPaid)
+                            {
+                                <span><i class="fas fa-lock"> </i> Paid Course</span>
+                                
+                            }
+                            else
+                            {
+                                <span><i class="fas fa-unlock"></i> Free Course</span>
+                                
+                            }
+                        </span>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Price:</span>
+                        <span class="text-success fw-bold">@Model.Amount.ToString("C")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Access:</span>
+                        <span class="text-primary">Lifetime Access</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Enrollment Date:</span>
+                        <span>@Model.PaymentDate.ToShortDateString()</span>
+                    </div>
+                    <hr />
+                    <form action="/Student/Course/ConfirmPayment/@Model.Id" method="post">
+                        @* <input type="hidden" name="paymentId" value="@Model.Id" /> *@
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-credit-card"></i> Proceed to Payment
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        <a href="/Student/Course/Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Courses
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

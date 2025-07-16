@@ -1,0 +1,48 @@
+﻿@model LMS.Models.ViewModels.QuizVm
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <h2 class="mb-3">Add Quiz Question</h2>
+    <p><strong>Course:</strong> @ViewBag.Course</p>
+    <p><strong>Module:</strong> @ViewBag.Module</p>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="AddModuleQuiz" method="post">
+                <input type="hidden" name="ModuleId" value="@ViewBag.ModuleId" />
+                <input type="hidden" name="ModuleTitle" value="@ViewBag.Module" />
+                @* <div class="mb-3">
+
+                    <label for="Title" class="form-label required">Quiz Title</label>
+                    <input class="form-control" name="Title" required />
+                </div> *@
+                <div class="mb-3">
+                    <label for="Question" class="form-label required">Question Text</label>
+                    <textarea class="form-control" name="Question" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Options</label>
+                    <input type="text" class="form-control mb-2" name="OptionA" placeholder="Option A" required />
+                    <input type="text" class="form-control mb-2" name="OptionB" placeholder="Option B" required />
+                    <input type="text" class="form-control mb-2" name="OptionC" placeholder="Option C" required />
+                    <input type="text" class="form-control mb-2" name="OptionD" placeholder="Option D" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="CorrectOption" class="form-label required">Correct Answer</label>
+                    <select class="form-select" name="CorrectOption" required>
+                        <option value="">-- Select Correct Option --</option>
+                        <option value="A">Option A</option>
+                        <option value="B">Option B</option>
+                        <option value="C">Option C</option>
+                        <option value="D">Option D</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-info">Add Question</button>
+                <a href="/Admin/Module/Index" class="btn btn-secondary">Back to Module</a>
+            </form>
+        </div>
+    </div>
+</div>
+

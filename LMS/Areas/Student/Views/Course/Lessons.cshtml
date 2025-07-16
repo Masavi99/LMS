@@ -1,0 +1,120 @@
+﻿@model List<LMS.Models.ViewModels.ModuleVm>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Lessons";
+}
+<div class="row">
+    <div class="col-6">
+        <h2 class="">Course Module</h2>
+    </div>
+    <div class="col-6">
+        <a href="/Student/Course/Index" class="btn btn-info float-end"><i class="fa-solid fa-arrow-left"></i>&nbsp;Go Back</a>
+    </div>
+</div>
+<div class="row">
+    <h4 class="text-danger">@ViewBag.Message</h4>
+</div>
+<div class="accordion mt-2" id="accordionExample">
+    @{
+        var index = 0;
+    }
+    @foreach (var module in Model)
+    {
+        var collapseId = $"collapse{module.Id}";
+        var headingId = $"heading{module.Id}";
+        var isFirst = (index == 0);
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="@headingId">
+                <button class="accordion-button @(isFirst ? "" : "collapsed")" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#@collapseId"
+                        aria-expanded="@(isFirst ? "true" : "false")"
+                        aria-controls="@collapseId">
+                    Module @module.ModuleOrder - @module.Title
+                </button>
+            </h2>
+            <div id="@collapseId" class="accordion-collapse collapse @(isFirst ? "show" : "")"
+                 aria-labelledby="@headingId"
+                 data-bs-parent="#accordionExample">
+                <div class="accordion-body position-relative">
+                    @if (module.IsUnlocked)
+                    {
+                        @Html.Raw(module.Contents)
+                        <!-- Finish Lesson Button -->
+                        @if (module.IsCompleted)
+                        {
+                            <button class="btn btn-sm btn-success ms-2" disabled>
+                                <i class="fa-solid fa-check"></i> Finished
+                            </button>
+                        }
+                        else
+                        {
+                            <form action="/Student/Course/CompleteModule/@module.Id"
+                                  method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-info ms-2">
+                                    <i class="fa-solid fa-check"></i> Finish Lesson
+                                </button>
+                            </form>
+                        }
+                        @if (!module.IsPassed)
+                        {
+                            <!-- Take Quiz -->
+                            <a href="/Student/Course/TakeQuiz/@module.Id"
+                               class="btn btn-sm btn-info ms-2">
+                                <i class="fa-solid fa-list-check"></i> Take Quiz
+                            </a>
+                        
+                            <span class="text-muted ms-2">
+                                To unlock the next lesson, please complete the quiz.
+                            </span>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-info ms-2" disabled>
+                                <i class="fa-solid fa-check"></i> Quiz Passed
+                            </button>
+                            <a href="/Student/Course/QuizResults/@module.Id"
+                               class="btn btn-sm btn-info ms-2">
+                                <i class="fa-solid fa-square-poll-vertical"></i> View Result
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <div class="locked-module">
+                            @Html.Raw(module.Contents)
+                            <div class="overlay">
+                                <p class="text-muted text-center m-0">
+                                    🔒 This module is locked. Complete the previous module and quiz to unlock.
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        index++;
+    }
+</div>
+@section scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    @if (TempData != null)
+    {
+            <script type="text/javascript">
+                $(function () {
+                    var save = '@TempData["save"]'
+                    var update = '@TempData["update"]'
+                    var deletes = '@TempData["delete"]'
+                    if (save != '') {
+                        alertify.success(save);
+                    }
+                    if (update != '') {
+                        alertify.success(update);
+                    }
+                    if (deletes != '') {
+                        alertify.success(deletes);
+                    }
+                })
+    </script>
+    }
+}

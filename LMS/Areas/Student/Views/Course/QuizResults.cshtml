@@ -1,0 +1,85 @@
+﻿@model LMS.Models.ViewModels.QuizResultVm
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Quiz Results";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4><i class="fas fa-check-circle"></i> Quiz Results</h4>
+            <span class="badge bg-light text-dark">
+                <i class="fas fa-question-circle"></i> Total Questions: @Model.TotalQuestions | <i class="fas fa-star"></i> Marks: @Model.TotalQuestions |
+                <i class="fas fa-trophy"></i> Score: @Model.Score
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                <h5>Result:</h5>
+                @if (Model.Passed)
+                {
+                    <span class="badge bg-success fs-5">Passed ✅</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger fs-5">Failed ❌</span>
+                }
+            </div>
+            <hr />
+            @foreach (var answer in Model.StudentAnswers.Select((a, i) => new { Answer = a, Index = i + 1 }))
+            {
+                <div class="mb-4 p-3 border rounded shadow-sm">
+                    <h6 class="fw-bold text-info">
+                        <i class="fas fa-question-circle"></i> Question @answer.Index
+                    </h6>
+                    <p class="fw-bold">@answer.Answer.Question</p>
+
+                    <ul class="list-group">
+                        <li class="list-group-item @(answer.Answer.CorrectAnswer == "A" ? "list-group-item-success" : "")">
+                            A. @answer.Answer.OptionA
+                            @if (answer.Answer.StudentAnswer == "A")
+                            {
+                                <span class="badge bg-primary ms-2">Your Answer</span>
+                            }
+                        </li>
+                        <li class="list-group-item @(answer.Answer.CorrectAnswer == "B" ? "list-group-item-success" : "")">
+                            B. @answer.Answer.OptionB
+                            @if (answer.Answer.StudentAnswer == "B")
+                            {
+                                <span class="badge bg-primary ms-2">Your Answer</span>
+                            }
+                        </li>
+                        <li class="list-group-item @(answer.Answer.CorrectAnswer == "C" ? "list-group-item-success" : "")">
+                            C. @answer.Answer.OptionC
+                            @if (answer.Answer.StudentAnswer == "C")
+                            {
+                                <span class="badge bg-primary ms-2">Your Answer</span>
+                            }
+                        </li>
+                        <li class="list-group-item @(answer.Answer.CorrectAnswer == "D" ? "list-group-item-success" : "")">
+                            D. @answer.Answer.OptionD
+                            @if (answer.Answer.StudentAnswer == "D")
+                            {
+                                <span class="badge bg-primary ms-2">Your Answer</span>
+                            }
+                        </li>
+                    </ul>
+
+                    @if (!answer.Answer.IsCorrect)
+                    {
+                        <p class="mt-2 text-danger">
+                            Correct Answer: <strong>@answer.Answer.CorrectAnswer</strong>
+                        </p>
+                    }
+                </div>
+            }
+
+            <div class="d-grid gap-2">
+                <a href="/Student/Course/Lessons/@ViewBag.CourseId" class="btn btn-info">
+                    <i class="fas fa-arrow-left"></i> Back to Lessons
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

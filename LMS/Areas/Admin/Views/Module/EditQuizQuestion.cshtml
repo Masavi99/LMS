@@ -1,0 +1,45 @@
+﻿@model LMS.Models.ViewModels.QuizVm
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <h2 class="mb-3">Add Quiz Question</h2>
+    <p><strong>Course:</strong> @Model.CourseTitle</p>
+    <p><strong>Module:</strong> @Model.ModuleTitle</p>
+    <p><strong>Quiz:</strong> @Model.Title</p>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="AddModuleQuiz" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="QuizId" value="@Model.QuizId" />
+                <div class="mb-3">
+                    <label for="Question" class="form-label required">Question Text</label>
+                    @Html.TextAreaFor(model => model.Question, new { @class= "form-control",rows = "3", required = "required" })
+                    @* <textarea class="form-control" name="Question" value="@Model.Question" rows="3" required></textarea> *@
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Options</label>
+                    <input type="text" class="form-control mb-2" name="OptionA" placeholder="Option A" value="@Model.OptionA" required />
+                    <input type="text" class="form-control mb-2" name="OptionB" placeholder="Option B" value="@Model.OptionB" required />
+                    <input type="text" class="form-control mb-2" name="OptionC" placeholder="Option C" value="@Model.OptionC" required />
+                    <input type="text" class="form-control mb-2" name="OptionD" placeholder="Option D" value="@Model.OptionD" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="CorrectOption" class="form-label required">Correct Answer</label>
+                    <select class="form-select" name="CorrectOption" required>
+                        <option value="">-- Select Correct Option --</option>
+                        <option value="A" @(Model.CorrectOption == "A" ? "selected" : "")>Option A</option>
+                        <option value="B" @(Model.CorrectOption == "B" ? "selected" : "")>Option B</option>
+                        <option value="C" @(Model.CorrectOption == "C" ? "selected" : "")>Option C</option>
+                        <option value="D" @(Model.CorrectOption == "D" ? "selected" : "")>Option D</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-info">Edit Question</button>
+                <a href="/Admin/Module/Index" class="btn btn-secondary">Back to Module</a>
+            </form>
+        </div>
+    </div>
+</div>
+

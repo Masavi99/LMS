@@ -1,0 +1,57 @@
+﻿@model LMS.Models.ViewModels.FinalExamVm
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <h2 class="mb-3">Create Final Exam Question</h2>
+    <p><strong>Course:</strong> @ViewBag.Course</p>
+    <p><strong>Exam:</strong> @ViewBag.Exam</p>
+    <p><strong>Exam Type:</strong> @ViewBag.ExamType</p>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="CreateQuestion" method="post">
+                <input type="hidden" name="ExamId" value="@ViewBag.ExamId" />
+                @* <div class="mb-3">
+
+                    <label for="Title" class="form-label required">Quiz Title</label>
+                    <input class="form-control" name="Title" required />
+                </div> *@
+                <div class="mb-3">
+                    <label for="Question" class="form-label required">Question Text</label>
+                    <textarea class="form-control" name="Question" rows="3" required></textarea>
+                </div>
+                @if(ViewBag.ExamType == "Written")
+                {
+                    <div class="mb-3">
+                        <label for="Marks" class="form-label required">Question Marks</label>
+                        <input class="form-control" name="Marks" placeholder="Enter Marks" required />
+                    </div>
+                }
+                @if(ViewBag.ExamType == "MCQ")
+                {
+                    <div class="mb-3">
+                        <label class="form-label required">Options</label>
+                        <input type="text" class="form-control mb-2" name="OptionA" placeholder="Option A" required />
+                        <input type="text" class="form-control mb-2" name="OptionB" placeholder="Option B" required />
+                        <input type="text" class="form-control mb-2" name="OptionC" placeholder="Option C" required />
+                        <input type="text" class="form-control mb-2" name="OptionD" placeholder="Option D" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CorrectOption" class="form-label required">Correct Answer</label>
+                        <select class="form-select" name="CorrectOption" required>
+                            <option value="">-- Select Correct Option --</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                            <option value="D">Option D</option>
+                        </select>
+                    </div>
+                }
+                <button type="submit" class="btn btn-info">Add Question</button>
+                <a href="/Admin/FinalExam/Question/@ViewBag.ExamId" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>
+

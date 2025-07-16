@@ -1,0 +1,109 @@
+﻿@using LMS.Models.DBModels
+
+@model IEnumerable<FinalExam>
+@{
+    ViewData["Title"] = "Final Exam";
+    Layout = "_Layout";
+    var count = 1;
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="">Manage Final Exam</h2>
+    </div>
+    <div class="col-6">
+        <a href="/Admin/FinalExam/Create" class="btn btn-info float-end"><i class="fas fa-plus"></i>&nbsp;Add New Exam</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Exam Title</th>
+                <th>Exam Type</th>
+                <th>Passing Score(%)</th>
+                <th>Max Attempts</th>
+                <th>Duration</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exam in Model)
+            {
+                <tr>
+                    <td>@exam.Course!.Title</td>
+                    <td>@exam.Title</td>
+                    <td>@exam.ExamType</td>
+                    <td>@exam.PassingScore</td>
+                    <td>@exam.MaxAttempts</td>
+                    <td>@exam.Duration minutes</td>
+                    <td>
+                        <a href="/Admin/FinalExam/Question/@exam.Id" class="btn btn-sm btn-info">Questions</a>
+                        @if (exam.ExamType == "Written" && exam.FinalExamSubmission!.Count > 0)
+                        {
+                            <a href="/Admin/FinalExam/Mark/@exam.Id" class="btn btn-sm btn-info">Mark</a>
+                        }
+                        <a href="/Admin/FinalExam/Edit/@exam.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <form method="post" action="/Admin/FinalExam/Delete/@exam.Id"
+                              style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this Exam?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    @if (TempData != null)
+    {
+        <script type="text/javascript">
+            $(function () {
+                var save = '@TempData["save"]'
+                var update = '@TempData["update"]'
+                var deletes = '@TempData["delete"]'
+                if (save != '') {
+                    alertify.success(save);
+                }
+                if (update != '') {
+                    alertify.success(update);
+                }
+                if (deletes != '') {
+                    alertify.success(deletes);
+                }
+            })
+        </script>
+    }
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+
+                dom: 'Bfrtip', // B = Buttons, f = filtering, r = processing, t = table, i = info, p = paging
+                buttons: [
+                    'csv',
+                    'excel',
+                    'pdf',
+                    'print'
+                ]
+            });
+        });
+
+    </script>
+
+}
+

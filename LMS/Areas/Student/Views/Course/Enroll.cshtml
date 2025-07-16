@@ -1,0 +1,29 @@
+﻿@using LMS.Models.DBModels
+@model Course
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Enroll in Course";
+}
+
+<div class="container mt-5">
+    <h2>Confirm Enrollment</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title text-primary">@Model.Title</h3>
+            <p class="card-text">
+                <strong>Price:</strong> @String.Format("{0:N2}", Model.Price)
+            </p>
+            <p class="card-text">
+                <strong>Description:</strong> @Html.Raw(Model.Description)
+            </p>
+
+            <form action="/Student/Course/EnrollConfirmed/@Model.Id" method="post">
+                @* <input type="hidden" name="id" value="@Model.Id" /> *@
+                <button type="submit" class="btn btn-success">Confirm Enrollment</button>
+                <a asp-action="Index" asp-controller="Home" asp-area="" class="btn btn-secondary ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

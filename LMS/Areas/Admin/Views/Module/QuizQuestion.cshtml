@@ -1,0 +1,103 @@
+﻿@model LMS.Models.ViewModels.QuizVm
+@{
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<div class="container mt-4">
+    <h2 class="mb-3">Manage Quiz Questions</h2>
+    <p><strong>Course:</strong> @Model.CourseTitle</p>
+    <p><strong>Module:</strong> @Model.ModuleTitle</p>
+    <p><strong>Quiz:</strong> @Model.Title</p>
+
+    <a href="/Admin/Module/AddModuleQuiz/@Model.ModuleId"
+       class="btn btn-primary mb-3">Add New Question</a>
+
+    <table class="table table-striped table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Correct Answer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.QuizQuestion!.Count; i++)
+            {
+                var q = Model.QuizQuestion[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@q.Question</td>
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>A:</strong> @q.OptionA</li>
+                            <li><strong>B:</strong> @q.OptionB</li>
+                            <li><strong>C:</strong> @q.OptionC</li>
+                            <li><strong>D:</strong> @q.OptionD</li>
+                        </ul>
+                    </td>
+                    <td><span class="badge bg-success">@q.CorrectOption</span></td>
+                    <td>
+                        <a href="/Admin/Module/EditQuizQuestion/@q.Id"
+                           class="btn btn-sm btn-warning">Edit</a>
+                        <form method="post" action="/Admin/Module/DeleteQuizQuestion/@q.Id"
+                              style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this question?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/Admin/Module/Index" class="btn btn-secondary mt-3">Back to Module</a>
+</div>
+@section scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    @if (TempData != null)
+    {
+        <script type="text/javascript">
+            $(function () {
+                var save = '@TempData["save"]'
+                var update = '@TempData["update"]'
+                var deletes = '@TempData["delete"]'
+                if (save != '') {
+                    alertify.success(save);
+                }
+                if (update != '') {
+                    alertify.success(update);
+                }
+                if (deletes != '') {
+                    alertify.success(deletes);
+                }
+            })
+        </script>
+    }
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+
+                dom: 'Bfrtip', // B = Buttons, f = filtering, r = processing, t = table, i = info, p = paging
+                buttons: [
+                    'pdf',
+                    'print'
+                ]
+            });
+        });
+
+    </script>
+
+}

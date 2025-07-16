@@ -1,0 +1,32 @@
+﻿@model LMS.Models.DBModels.Course
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Details";
+}
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Course Deatils</h2>
+    </div>
+    <div class="col-6">
+        @if(ViewBag.Roles == "Admin")
+        {
+            <a href="/Admin/Course/Index" class="btn btn-info float-end"><i class="fa-solid fa-arrow-left"></i>&nbsp;Go Back</a>
+        }
+        else
+        {
+            <a href="/Home/Index" class="btn btn-info float-end"><i class="fa-solid fa-arrow-left"></i>&nbsp;Go Back</a>
+        }
+        
+    </div>
+</div>
+<div class="card text-center">
+    <div class="card-header fw-bold">
+        Title: @Model.Title
+    </div>
+    <div class="card-body text-start">
+        <p class="card-text">@Html.Raw(Model.Description)</p>
+    </div>
+    <div class="card-footer text-body-secondary fw-bold">
+        Duration: @Model.Duration hours
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model LMS.Models.DBModels.FinalExam
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Submit Written Exam";
+    var questions = ViewBag.Questions as List<LMS.Models.DBModels.FinalExamQuestion>;
+}
+
+<h3 class="text-info">@Model.Title - Written Exam</h3>
+<h4>Course: @ViewBag.CourseTitle</h4>
+@if (questions != null && questions.Any())
+{
+    <div class="mb-4">
+        <h5 class="text-secondary">Exam Questions:</h5>
+        <ol>
+            @foreach (var q in questions)
+            {
+                <li class="mb-2">@q.Question</li>
+            }
+        </ol>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">No questions found for this exam.</div>
+}
+
+<form action="/Student/Course/SubmitWrittenExam" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ExamId" value="@Model.Id" />
+    <input type="hidden" name="CourseId" value="@ViewBag.CourseId" />
+    <input type="hidden" name="SubmissionId" value="@ViewBag.SubmissionId" />
+
+    <div class="mb-3">
+        <label class="form-label">Upload your written answers (PDF only)</label>
+        <input type="file" name="AnswerFile" class="form-control" accept=".pdf" required />
+        <small class="text-muted">Make sure your answers match the questions shown above.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Exam</button>
+</form>

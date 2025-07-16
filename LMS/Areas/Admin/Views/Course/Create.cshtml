@@ -1,0 +1,131 @@
+﻿@model LMS.Models.DBModels.Course
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create";
+}
+<link href="https://cdn.jsdelivr.net/npm/suneditor/dist/css/suneditor.min.css" rel="stylesheet">
+<br />
+<h2 class="text-info">Add New Course</h2>
+<form id="createForm" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <h4 class="text-danger">@ViewBag.message</h4>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Title</label>
+            </div>
+            <div class="col-10">
+                <input name="Title" class="form-control" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Description</label>
+            </div>
+            <div class="col-10">
+                @* <input name="Title" class="form-control" /> *@
+                <textarea name="Description" id="editor" style="height: 300px;"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Price</label>
+            </div>
+            <div class="col-10">
+                <input name="Price" class="form-control" required />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Thumbnail Image</label>
+            </div>
+            <div class="col-10">
+                <input name="Image" class="form-control" type="file" required />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Duration</label>
+            </div>
+            <div class="col-10">
+                <input name="Duration" class="form-control" required />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label>IntroVideoUrl</label>
+            </div>
+            <div class="col-10">
+                <input name="IntroVideoUrl" class="form-control" />
+                <span asp-validation-for="IntroVideoUrl" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        
+        <div class="form-group row my-2">
+            <div class="col-2">
+                <label class="required">Is Paid?</label>
+            </div>
+            <div class="col-10">
+                <input name="IsPaid" class="" type="checkbox" value="true"/>
+                <span asp-validation-for="IsPaid" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="form-group mt-4 ms-5">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            &nbsp;<a href="/Admin/Course/Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+</form>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/suneditor/dist/suneditor.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editor = SUNEDITOR.create('editor', {
+                height: '300px',
+                width: '100%',
+                buttonList: [
+                    ['undo', 'redo', 'formatBlock', 'bold', 'underline', 'italic', 'list', 'align', 'fontColor', 'hiliteColor', 'horizontalRule', 'table', 'link', 'image', 'video', 'fullScreen']
+                ]
+            });
+
+            // Wait until SunEditor is fully loaded
+            editor.onChange = function (contents) {
+                console.log("Editor content updated:", contents);
+                // Always update textarea value on each change (optional)
+                document.getElementById('editor').value = contents;
+            };
+
+            const form = document.getElementById('createForm');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    const content = editor.getContents();
+                    console.log("Submitting content:", content);
+                    document.getElementById('editor').value = content;
+                });
+            } else {
+                console.error("Form not found.");
+            }
+        });
+    </script>
+}
