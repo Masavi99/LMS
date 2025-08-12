@@ -3,12 +3,13 @@ using LMS.Models.DBModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace LMS
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,23 @@ namespace LMS
                 pattern: "{controller=Home}/{action=Index}/{id?}").WithStaticAssets();
             app.MapRazorPages()
                .WithStaticAssets();
+
+            //using(var scope=app.Services.CreateScope())
+            //{
+            //    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            //    string email = "Admin@lms.com";
+            //    string password = "Admin@123";
+            //    if (await userManager.FindByEmailAsync(email)==null)
+            //    {
+            //        var user =new ApplicationUser();
+            //        user.UserName= email;
+            //        user.Email = email;
+            //        user.EmailConfirmed = true;
+
+            //        await userManager.CreateAsync(user ,password);
+            //        await userManager.AddToRoleAsync(user, "Admin");
+            //    }
+            //}
 
             app.Run();
         }

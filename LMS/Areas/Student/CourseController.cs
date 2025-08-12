@@ -209,26 +209,67 @@ namespace LMS.Areas.Student
         }
 
         [HttpPost]
-        public async Task<IActionResult> CompleteModule(int id) //module id
+
+        public async Task<IActionResult> CompleteModule(int id) // module id
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var existingProgress = await _db.ProgressTracking.FirstOrDefaultAsync(p => p.StudentId == userId && p.ModuleId == id);
-
             var module = await _db.Module.FindAsync(id);
-            var progress = new ProgressTracking
+            if (module == null)
             {
-                StudentId = userId,
-                CourseId = module.CourseId,
-                ModuleId = id,
-                Completed = false,
-                CompletionDate = DateTime.UtcNow
-            };
-            _db.ProgressTracking.Add(progress);
+                TempData["error"] = "Module not found.";
+                return RedirectToAction("Index");
+            }
+
+            // Check if progress already exists
+            var existingProgress = await _db.ProgressTracking
+                .FirstOrDefaultAsync(p => p.StudentId == userId && p.ModuleId == id);
+
+            if (existingProgress != null)
+            {
+                // Update existing record
+                existingProgress.Completed = true;
+                existingProgress.CompletionDate = DateTime.UtcNow;
+            }
+            else
+            {
+                // Create new record
+                var progress = new ProgressTracking
+                {
+                    StudentId = userId,
+                    CourseId = module.CourseId,
+                    ModuleId = id,
+                    Completed = true, // since you're marking it completed
+                    CompletionDate = DateTime.UtcNow
+                };
+                _db.ProgressTracking.Add(progress);
+            }
+
             await _db.SaveChangesAsync();
+
             TempData["save"] = "Module marked as completed!";
             return RedirectToAction("Lessons", new { id = module.CourseId });
         }
+        //public async Task<IActionResult> CompleteModule(int id) //module id
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    var existingProgress = await _db.ProgressTracking.FirstOrDefaultAsync(p => p.StudentId == userId && p.ModuleId == id);
+
+        //    var module = await _db.Module.FindAsync(id);
+        //    var progress = new ProgressTracking
+        //    {
+        //        StudentId = userId,
+        //        CourseId = module.CourseId,
+        //        ModuleId = id,
+        //        Completed = false,
+        //        CompletionDate = DateTime.UtcNow
+        //    };
+        //    _db.ProgressTracking.Add(progress);
+        //    await _db.SaveChangesAsync();
+        //    TempData["save"] = "Module marked as completed!";
+        //    return RedirectToAction("Lessons", new { id = module.CourseId });
+        //}
         [HttpGet]
         public IActionResult TakeQuiz(int id) // module id
         {
@@ -244,7 +285,9 @@ namespace LMS.Areas.Student
             }
 
             return View(quiz);
+
         }
+
         [HttpPost]
         public IActionResult TakeQuiz(int quizId, Dictionary<int, string> answers)
         {
