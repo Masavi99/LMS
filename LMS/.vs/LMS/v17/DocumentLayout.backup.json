@@ -3,47 +3,32 @@
   "WorkspaceRootPath": "E:\\project\\LMS-SP1\\LMS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\wwwroot\\css\\register.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:wwwroot\\css\\register.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\student\\views\\course\\finalexam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\student\\views\\course\\finalexam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\student\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\student\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\models\\dbmodels\\progresstracking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:models\\dbmodels\\progresstracking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\admin\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\admin\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\admin\\modulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\admin\\modulecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\migrations\\20250722074646_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:migrations\\20250722074646_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/masavi_sqlexpress/LMS/True/SqlTable/dbo.AspNetUsers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|e:\\project\\lms-sp1\\lms\\areas\\admin\\finalexamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B26B3757-58D8-4FD0-9DA8-0139B7D686E8}|LMS.csproj|solutionrelative:areas\\admin\\finalexamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -53,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -61,140 +46,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FinalExam.cshtml",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\Views\\Course\\FinalExam.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Student\\Views\\Course\\FinalExam.cshtml",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\Views\\Course\\FinalExam.cshtml",
-              "RelativeToolTip": "Areas\\Student\\Views\\Course\\FinalExam.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAuwCsAAAACAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-16T18:47:16.796Z",
+              "WhenOpened": "2025-09-16T20:21:46.66Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\CourseController.cs",
-              "RelativeDocumentMoniker": "Areas\\Student\\CourseController.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\CourseController.cs",
-              "RelativeToolTip": "Areas\\Student\\CourseController.cs",
-              "ViewState": "AgIAAHMBAAAAAAAAAAAowIoBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T17:31:25.058Z",
+              "Title": "login.css",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\login.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\login.css",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\login.css",
+              "RelativeToolTip": "wwwroot\\css\\login.css",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAMAAADpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-16T20:23:32.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "register.css",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\register.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\register.css",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\register.css",
+              "RelativeToolTip": "wwwroot\\css\\register.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-16T20:19:45.954Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAADwvwYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T18:19:54.143Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProgressTracking.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Models\\DBModels\\ProgressTracking.cs",
-              "RelativeDocumentMoniker": "Models\\DBModels\\ProgressTracking.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Models\\DBModels\\ProgressTracking.cs",
-              "RelativeToolTip": "Models\\DBModels\\ProgressTracking.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T18:08:18.818Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAcwD4AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T13:30:03.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAlAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-02T20:25:09.846Z",
+              "WhenOpened": "2025-09-16T20:18:05.985Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "RoleController.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\RoleController.cs",
-              "RelativeDocumentMoniker": "Areas\\Admin\\RoleController.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\RoleController.cs",
-              "RelativeToolTip": "Areas\\Admin\\RoleController.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAIAwwIQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T06:41:51.902Z",
+              "Title": "site.css",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAswHEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-16T20:15:04.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-16T20:09:51.517Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ModuleController.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\ModuleController.cs",
-              "RelativeDocumentMoniker": "Areas\\Admin\\ModuleController.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\ModuleController.cs",
-              "RelativeToolTip": "Areas\\Admin\\ModuleController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMUAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T13:19:03.146Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "20250722074646_Initial.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Migrations\\20250722074646_Initial.cs",
-              "RelativeDocumentMoniker": "Migrations\\20250722074646_Initial.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Migrations\\20250722074646_Initial.cs",
-              "RelativeToolTip": "Migrations\\20250722074646_Initial.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T07:46:46.774Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "dbo.AspNetUsers.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/masavi_sqlexpress/LMS/True/SqlTable/dbo.AspNetUsers.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/masavi_sqlexpress/LMS/True/SqlTable/dbo.AspNetUsers.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-07-22T13:42:16.522Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FinalExamController.cs",
-              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\FinalExamController.cs",
-              "RelativeDocumentMoniker": "Areas\\Admin\\FinalExamController.cs",
-              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Admin\\FinalExamController.cs",
-              "RelativeToolTip": "Areas\\Admin\\FinalExamController.cs",
-              "ViewState": "AgIAAMYAAAAAAAAAAAAowN4AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T16:54:00.232Z",
+              "Title": "FinalExam.cshtml",
+              "DocumentMoniker": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\Views\\Course\\FinalExam.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Student\\Views\\Course\\FinalExam.cshtml",
+              "ToolTip": "E:\\project\\LMS-SP1\\LMS\\Areas\\Student\\Views\\Course\\FinalExam.cshtml",
+              "RelativeToolTip": "Areas\\Student\\Views\\Course\\FinalExam.cshtml",
+              "ViewState": "AgIAACsAAAAAAAAAAAAswEQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-16T18:47:16.796Z",
               "EditorCaption": ""
             }
           ]

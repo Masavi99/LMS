@@ -1677,7 +1677,6 @@ E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\a3ygkwa5zy-2z0ns9nrw6.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
-E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\6frx290mw1-65rwyg2ygj.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\vlqi3gozd6-61n19gt1b8.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\0c41ry3hx0-xtxxf3hu2r.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\ys7xlzl17r-bqjiyaj88i.gz
@@ -1754,3 +1753,6 @@ E:\project\LMS-SP1\LMS\obj\Debug\net9.0\ref\LMS.dll
 E:\project\LMS-SP1\LMS\bin\Debug\net9.0\Microsoft.AspNetCore.Authorization.dll
 E:\project\LMS-SP1\LMS\bin\Debug\net9.0\Microsoft.AspNetCore.Metadata.dll
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\6frx290mw1-ugraj7b569.gz
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\apqulovdof-w6pffjo5mp.gz
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\cu8pay311q-fzn9h2dquh.gz

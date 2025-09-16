@@ -1,0 +1,97 @@
+﻿/* Page backdrop */
+.auth-bg {
+    min-height: 100vh;
+    /*background: radial-gradient(1200px 600px at 10% 10%, rgba(78,115,223,.25), transparent 60%), radial-gradient(1000px 800px at 90% 20/%, rgba(28,200,138,.25), transparent 60%), linear-gradient(135deg, #f7f9fc 0%, #eef2f8 100%);*/
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+/* Card */
+.auth-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(16, 30, 115, 0.12);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn .5s ease;
+}
+
+    /* Decorative accent */
+    .auth-card::before {
+        content: "";
+        position: absolute;
+        inset: -40% auto auto -40%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at center, rgba(78,115,223,.18), transparent 60%);
+        filter: blur(8px);
+    }
+
+/* Headings */
+.auth-title {
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: .25rem;
+}
+
+.auth-subtitle {
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* Inputs */
+.form-floating > .form-control {
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: box-shadow .2s, border-color .2s;
+}
+
+    .form-floating > .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 6px rgba(78,115,223,.12);
+    }
+
+/* Button */
+.btn-primary {
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease, background-color .2s ease;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(78,115,223,.25);
+    }
+
+/* Inline links */
+.auth-links a {
+    text-decoration: none;
+}
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Small screens */
+@media (max-width: 576px) {
+    .auth-card {
+        padding: 1.25rem;
+    }
+}

@@ -60,3 +60,55 @@ body {
 .card-header.bg-primary {
     background: linear-gradient(90deg, #007bff, #6610f2);
 }
+body {
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+h1, h2 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+    .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 8px rgba(78, 115, 223, 0.3);
+    }
+
+.btn-primary {
+    background: #4e73df;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+    .btn-primary:hover {
+        background: #2e59d9;
+        transform: translateY(-2px);
+    }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
