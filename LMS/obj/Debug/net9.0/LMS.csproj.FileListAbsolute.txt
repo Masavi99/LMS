@@ -1745,7 +1745,6 @@ E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.build.json
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.build.json.cache
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.development.json
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\LMS.csproj.Up2Date
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\LMS.dll
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\refint\LMS.dll
@@ -1754,3 +1753,4 @@ E:\project\LMS-SP1\LMS\obj\Debug\net9.0\LMS.genruntimeconfig.cache
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\ref\LMS.dll
 E:\project\LMS-SP1\LMS\bin\Debug\net9.0\Microsoft.AspNetCore.Authorization.dll
 E:\project\LMS-SP1\LMS\bin\Debug\net9.0\Microsoft.AspNetCore.Metadata.dll
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

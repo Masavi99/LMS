@@ -1,4 +1,5 @@
 ﻿using LMS.Models.DBModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,8 @@ namespace LMS.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
+            : base(options) { }
 
-        }
         public DbSet<Course> Course { get; set; }
         public DbSet<Module> Module { get; set; }
         public DbSet<Quiz> Quiz { get; set; }
@@ -25,5 +24,19 @@ namespace LMS.Data
         public DbSet<StudentQuizAnswer> StudentQuizAnswer { get; set; }
         public DbSet<StudentFinalExamAnswer> StudentFinalExamAnswer { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // ✅ Critical: lets Identity configure primary keys (fixes your error)
+            base.OnModelCreating(modelBuilder);
+
+            // ProgressTracking config
+            modelBuilder.Entity<ProgressTracking>()
+                .Property(p => p.CompletionDate)
+                .HasColumnType("datetime2"); // safer range/precision
+
+            modelBuilder.Entity<ProgressTracking>()
+                .HasIndex(p => new { p.StudentId, p.ModuleId })
+                .IsUnique();
+        }
     }
 }

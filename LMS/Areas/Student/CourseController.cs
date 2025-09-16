@@ -289,59 +289,84 @@ namespace LMS.Areas.Student
         }
 
         [HttpPost]
+        [HttpPost]
         public IActionResult TakeQuiz(int quizId, Dictionary<int, string> answers)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // Load quiz & questions
             var quiz = _db.Quiz
                 .Include(q => q.QuizQuestions)
                 .FirstOrDefault(q => q.Id == quizId);
-            var courseId = _db.Module.Find(quiz.ModuleId).CourseId;
-            var progressTracking = _db.ProgressTracking.FirstOrDefault(x => x.ModuleId == quiz.ModuleId && x.StudentId == userId);
+
             if (quiz == null)
             {
-                TempData["message"] = "Quiz not found.";
-                return RedirectToAction("Lessons", new { courseId = _db.Quiz.Find(quizId)?.Module.CourseId });
+                // CHANGED: simple, safe redirect when quiz missing
+                TempData["error"] = "Quiz not found.";
+                return RedirectToAction("Index", "Courses");
+            }
+
+            // CHANGED: load module safely (you were using 'module' without defining it)
+            var module = _db.Module
+                .Include(m => m.Course)
+                .FirstOrDefault(m => m.Id == quiz.ModuleId);
+
+            if (module == null)
+            {
+                TempData["error"] = "Module not found for this quiz.";
+                return RedirectToAction("Index", "Courses");
+            }
+
+            var courseId = module.CourseId;
+
+            // CHANGED: UPSERT ProgressTracking (your previous block always executed due to braces)
+            var progressTracking = _db.ProgressTracking
+                .FirstOrDefault(x => x.ModuleId == module.Id && x.StudentId == userId);
+
+            if (progressTracking == null)
+            {
+                progressTracking = new ProgressTracking
+                {
+                    ModuleId = module.Id,
+                    CourseId = module.CourseId,
+                    StudentId = userId,
+                    Completed = false
+                };
+                _db.ProgressTracking.Add(progressTracking);
+                // defer SaveChanges until later
             }
 
             int totalQuestions = quiz.QuizQuestions.Count;
             int correctAnswers = 0;
             var studentAnswers = new List<StudentAnswerVm>();
 
-            // Create QuizResult record (but don't save yet — we need the ID first)
+            // Create a QuizResult first so child rows can reference it
             var quizResult = new QuizResult
             {
                 StudentId = userId,
                 QuizId = quiz.Id,
                 AttemptDate = DateTime.UtcNow,
-                Score = 0, // will update later
-                Passed = false // will update later
+                Score = 0,
+                Passed = false
             };
             _db.QuizResult.Add(quizResult);
-            _db.SaveChanges(); // save to get the QuizResult ID
+            _db.SaveChanges(); // need quizResult.Id
 
-            // For each question, record the student's answer
             foreach (var question in quiz.QuizQuestions)
             {
-                string studentAnswer = answers.ContainsKey(question.Id) ? answers[question.Id] : "";
+                // CHANGED: safe read from answers; supports missing keys
+                var studentAnswer = (answers != null && answers.TryGetValue(question.Id, out var a)) ? a : string.Empty;
                 bool isCorrect = string.Equals(studentAnswer, question.CorrectOption, StringComparison.OrdinalIgnoreCase);
+                if (isCorrect) correctAnswers++;
 
-                if (isCorrect)
-                {
-                    correctAnswers++;
-                }
-
-                // Save each student's answer
-                var studentQuizAnswer = new StudentQuizAnswer
+                _db.StudentQuizAnswer.Add(new StudentQuizAnswer
                 {
                     QuizResultId = quizResult.Id,
                     QuizQuestionId = question.Id,
                     SelectedOption = studentAnswer,
                     IsCorrect = isCorrect
-                };
-                _db.StudentQuizAnswer.Add(studentQuizAnswer);
+                });
 
-                // For showing in the view (optional)
                 studentAnswers.Add(new StudentAnswerVm
                 {
                     Question = question.Question,
@@ -355,22 +380,27 @@ namespace LMS.Areas.Student
                 });
             }
 
-            // Update QuizResult final values
             quizResult.Score = correctAnswers;
-            //quizResult.TotalQuestions = totalQuestions;
-            quizResult.Passed = correctAnswers >= (int)Math.Ceiling(totalQuestions * 0.5); // e.g., 50% pass
+            // keep 50% pass rule; or read from quiz.PassPercentage if you add it
+            quizResult.Passed = correctAnswers >= (int)Math.Ceiling(totalQuestions * 0.5);
             if (quizResult.Passed)
             {
                 progressTracking.Completed = true;
+                if (progressTracking.CourseId == null)
+                    progressTracking.CourseId = module.CourseId;
+
+                if (progressTracking.CompletionDate == null)
+                    progressTracking.CompletionDate = DateTime.UtcNow;
             }
+
+
 
             _db.SaveChanges();
 
-            // 4️⃣ Show result to the student
             var resultVm = new QuizResultVm
             {
                 CourseId = courseId,
-                ModuleId = quiz.ModuleId,
+                ModuleId = module.Id,
                 Score = correctAnswers,
                 TotalQuestions = totalQuestions,
                 Passed = quizResult.Passed,
@@ -380,51 +410,152 @@ namespace LMS.Areas.Student
             return View("QuizResult", resultVm);
         }
 
-        public IActionResult QuizResults(int id) //Module Id
-        {
-            var courseId = _db.Module.Find(id)?.CourseId;
-            ViewBag.CourseId = courseId;
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var quizResult = _db.QuizResult
-                .Include(qr => qr.Quiz)
-                    .ThenInclude(q => q.QuizQuestions)
-                .Where(qr => qr.Quiz.ModuleId == id && qr.StudentId == userId)
-                .OrderByDescending(qr => qr.AttemptDate)
-                .FirstOrDefault();
+        //public IActionResult TakeQuiz(int quizId, Dictionary<int, string> answers)
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    var quiz = _db.Quiz
+        //        .Include(q => q.QuizQuestions)
+        //        .FirstOrDefault(q => q.Id == quizId);
+        //    var courseId = _db.Module.Find(quiz.ModuleId).CourseId;
+        //    var progressTracking = _db.ProgressTracking .FirstOrDefault(x => x.ModuleId == module.Id && x.StudentId == userId);
+        //    {
+        //        progressTracking = new ProgressTracking
+        //        {
+        //            ModuleId = module.Id,
+        //            StudentId = userId,
+        //            Completed = false
+
+        //        };
+        //        _db.ProgressTracking.Add(progressTracking);
+        //    }
+        //    if (quiz == null)
+        //    {
+        //        TempData["message"] = "Quiz not found.";
+        //        return RedirectToAction("Lessons", new { courseId = _db.Quiz.Find(quizId)?.Module.CourseId });
+        //    }
+
+        //    int totalQuestions = quiz.QuizQuestions.Count;
+        //    int correctAnswers = 0;
+        //    var studentAnswers = new List<StudentAnswerVm>();
+
+        //    // Create QuizResult record (but don't save yet — we need the ID first)
+        //    var quizResult = new QuizResult
+        //    {
+        //        StudentId = userId,
+        //        QuizId = quiz.Id,
+        //        AttemptDate = DateTime.UtcNow,
+        //        Score = 0, // will update later
+        //        Passed = false // will update later
+        //    };
+        //    _db.QuizResult.Add(quizResult);
+        //    _db.SaveChanges(); // save to get the QuizResult ID
+
+        //    // For each question, record the student's answer
+        //    foreach (var question in quiz.QuizQuestions)
+        //    {
+        //        string studentAnswer = answers.ContainsKey(question.Id) ? answers[question.Id] : "";
+        //        bool isCorrect = string.Equals(studentAnswer, question.CorrectOption, StringComparison.OrdinalIgnoreCase);
+
+        //        if (isCorrect)
+        //        {
+        //            correctAnswers++;
+        //        }
+
+        //        // Save each student's answer
+        //        var studentQuizAnswer = new StudentQuizAnswer
+        //        {
+        //            QuizResultId = quizResult.Id,
+        //            QuizQuestionId = question.Id,
+        //            SelectedOption = studentAnswer,
+        //            IsCorrect = isCorrect
+        //        };
+        //        _db.StudentQuizAnswer.Add(studentQuizAnswer);
+
+        //        // For showing in the view (optional)
+        //        studentAnswers.Add(new StudentAnswerVm
+        //        {
+        //            Question = question.Question,
+        //            OptionA = question.OptionA,
+        //            OptionB = question.OptionB,
+        //            OptionC = question.OptionC,
+        //            OptionD = question.OptionD,
+        //            StudentAnswer = studentAnswer,
+        //            CorrectAnswer = question.CorrectOption,
+        //            IsCorrect = isCorrect
+        //        });
+        //    }
+
+        //    // Update QuizResult final values
+        //    quizResult.Score = correctAnswers;
+        //    //quizResult.TotalQuestions = totalQuestions;
+        //    quizResult.Passed = correctAnswers >= (int)Math.Ceiling(totalQuestions * 0.5); // e.g., 50% pass
+        //    if (quizResult.Passed)
+        //    {
+        //        progressTracking.Completed = true;
+        //    }
+
+        //    _db.SaveChanges();
+
+        //    // 4️⃣ Show result to the student
+        //    var resultVm = new QuizResultVm
+        //    {
+        //        CourseId = courseId,
+        //        ModuleId = quiz.ModuleId,
+        //        Score = correctAnswers,
+        //        TotalQuestions = totalQuestions,
+        //        Passed = quizResult.Passed,
+        //        StudentAnswers = studentAnswers
+        //    };
+
+        //    return View("QuizResult", resultVm);
+        //}
+
+        //public IActionResult QuizResults(int id) //Module Id
+        //{
+        //    var courseId = _db.Module.Find(id)?.CourseId;
+        //    ViewBag.CourseId = courseId;
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var quizResult = _db.QuizResult
+        //        .Include(qr => qr.Quiz)
+        //            .ThenInclude(q => q.QuizQuestions)
+        //        .Where(qr => qr.Quiz.ModuleId == id && qr.StudentId == userId)
+        //        .OrderByDescending(qr => qr.AttemptDate)
+        //        .FirstOrDefault();
 
 
-            if (quizResult == null)
-            {
-                TempData["error"] = "Quiz result not found.";
-                return RedirectToAction("Lessons", new { courseId = quizResult?.Quiz.Module.CourseId });
-            }
+        //    if (quizResult == null)
+        //    {
+        //        TempData["error"] = "Quiz result not found.";
+        //        return RedirectToAction("Lessons", new { courseId = quizResult?.Quiz.Module.CourseId });
+        //    }
 
-            var studentAnswers = _db.StudentQuizAnswer
-                .Where(a => a.QuizResultId == quizResult.Id)
-                .Include(a => a.QuizQuestion)
-                .Select(a => new StudentAnswerVm
-                {
-                    Question = a.QuizQuestion.Question,
-                    OptionA = a.QuizQuestion.OptionA,
-                    OptionB = a.QuizQuestion.OptionB,
-                    OptionC = a.QuizQuestion.OptionC,
-                    OptionD = a.QuizQuestion.OptionD,
-                    StudentAnswer = a.SelectedOption,
-                    CorrectAnswer = a.QuizQuestion.CorrectOption,
-                    IsCorrect = a.IsCorrect
-                })
-                .ToList();
+        //    var studentAnswers = _db.StudentQuizAnswer
+        //        .Where(a => a.QuizResultId == quizResult.Id)
+        //        .Include(a => a.QuizQuestion)
+        //        .Select(a => new StudentAnswerVm
+        //        {
+        //            Question = a.QuizQuestion.Question,
+        //            OptionA = a.QuizQuestion.OptionA,
+        //            OptionB = a.QuizQuestion.OptionB,
+        //            OptionC = a.QuizQuestion.OptionC,
+        //            OptionD = a.QuizQuestion.OptionD,
+        //            StudentAnswer = a.SelectedOption,
+        //            CorrectAnswer = a.QuizQuestion.CorrectOption,
+        //            IsCorrect = a.IsCorrect
+        //        })
+        //        .ToList();
 
-            var resultVm = new QuizResultVm
-            {
-                Score = quizResult.Score,
-                TotalQuestions = quizResult.Quiz.QuizQuestions.Count,
-                Passed = quizResult.Passed,
-                StudentAnswers = studentAnswers
-            };
+        //    var resultVm = new QuizResultVm
+        //    {
+        //        Score = quizResult.Score,
+        //        TotalQuestions = quizResult.Quiz.QuizQuestions.Count,
+        //        Passed = quizResult.Passed,
+        //        StudentAnswers = studentAnswers
+        //    };
 
-            return View(resultVm);
-        }
+        //    return View(resultVm);
+        //}
         [HttpGet]
         public IActionResult FinalExam(int id) // Course id
         {
