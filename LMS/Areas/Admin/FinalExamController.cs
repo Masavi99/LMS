@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS.Areas.Admin
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Instructor")]
     public class FinalExamController : Controller
     {
         private ApplicationDbContext _db;

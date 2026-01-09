@@ -1755,4 +1755,5 @@ E:\project\LMS-SP1\LMS\bin\Debug\net9.0\Microsoft.AspNetCore.Metadata.dll
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\6frx290mw1-ugraj7b569.gz
 E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\apqulovdof-w6pffjo5mp.gz
-E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\cu8pay311q-fzn9h2dquh.gz
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\cu8pay311q-sqzch1w0yy.gz
+E:\project\LMS-SP1\LMS\obj\Debug\net9.0\compressed\aknjjom7en-x3f0aogvm4.gz

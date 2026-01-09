@@ -26,7 +26,7 @@ namespace LMS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // ✅ Critical: lets Identity configure primary keys (fixes your error)
+            
             base.OnModelCreating(modelBuilder);
 
             // ProgressTracking config

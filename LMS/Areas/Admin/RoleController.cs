@@ -128,27 +128,81 @@ namespace LMS.Areas.Admin
             ViewBag.RoleId = _roleManager.Roles.Select(u => new { u.Id, u.Name }).ToList();
             return View();
         }
+   
         [HttpPost]
         public async Task<IActionResult> Assign(RoleUserVm roleUser)
         {
+            // Get user
             var user = _userManager.Users.FirstOrDefault(c => c.Id == roleUser.UserId);
-            var isCheckRoleAssign = await _userManager.IsInRoleAsync(user, roleUser.RoleId);
-            if (isCheckRoleAssign)
+            if (user == null)
             {
-                ViewBag.message = "This user already assign this role";
-                ViewBag.UserId = _userManager.Users.Where(c => c.LockoutEnd < DateTime.Now || c.LockoutEnd == null).Select(u => new { u.Id, u.UserName }).ToList();
-                ViewBag.RoleId = _roleManager.Roles.Select(u => new { u.Id, u.Name }).ToList();
-                return View();
+                ViewBag.message = "User not found";
+                goto Repopulate; // jump to repopulate ViewBags
             }
 
-            var role = await _userManager.AddToRoleAsync(user, roleUser.RoleId);
-            if (role.Succeeded)
+            string roleName = roleUser.RoleId; // RoleId now contains role name from dropdown
+
+            // Check if user already has this role
+            var userRoles = await _userManager.GetRolesAsync(user);
+            if (userRoles.Contains(roleName))
             {
-                TempData["save"] = "User Role Assigned";
+                ViewBag.message = "This user already has this role";
+                goto Repopulate;
+            }
+
+            // Optional: remove all existing roles if you want only one role per user
+            if (userRoles.Any())
+            {
+                await _userManager.RemoveFromRolesAsync(user, userRoles);
+            }
+
+            // Add new role
+            var result = await _userManager.AddToRoleAsync(user, roleName);
+            if (result.Succeeded)
+            {
+                TempData["save"] = "User Role Assigned Successfully";
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                ViewBag.message = string.Join(", ", result.Errors.Select(e => e.Description));
+            }
+
+        Repopulate:
+            // Re-populate ViewBags before returning
+            ViewBag.UserId = _userManager.Users
+                .Where(c => c.LockoutEnd < DateTime.Now || c.LockoutEnd == null)
+                .Select(u => new { u.Id, u.UserName })
+                .ToList();
+
+            ViewBag.RoleId = _roleManager.Roles
+                .Select(u => new { u.Id, u.Name })
+                .ToList();
+
             return View();
         }
+
+
+        //public async Task<IActionResult> Assign(RoleUserVm roleUser)
+        //{
+        //    var user = _userManager.Users.FirstOrDefault(c => c.Id == roleUser.UserId);
+        //    var isCheckRoleAssign = await _userManager.IsInRoleAsync(user, roleUser.RoleId);
+        //    if (isCheckRoleAssign)
+        //    {
+        //        ViewBag.message = "This user already assign this role";
+        //        ViewBag.UserId = _userManager.Users.Where(c => c.LockoutEnd < DateTime.Now || c.LockoutEnd == null).Select(u => new { u.Id, u.UserName }).ToList();
+        //        ViewBag.RoleId = _roleManager.Roles.Select(u => new { u.Id, u.Name }).ToList();
+        //        return View();
+        //    }
+
+        //    var role = await _userManager.AddToRoleAsync(user, roleUser.RoleId);
+        //    if (role.Succeeded)
+        //    {
+        //        TempData["save"] = "User Role Assigned";
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View();
+        //}
 
         ////Show Assigned User Role
         [HttpGet]

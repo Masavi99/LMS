@@ -51,3 +51,12 @@ h1, h2 {
         transform: translateY(0);
     }
 }
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 5;
+    color: #6c757d;
+}
